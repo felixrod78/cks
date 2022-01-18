@@ -1,0 +1,49 @@
+Block Incoming Traffic by Default for All Pods in the web-auth Namespace
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: web-auth
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+
+Allow Traffic from the auth-client Pod to Reach the web-auth-server
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-network-policy
+  namespace: web-auth
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: wa
+    - podSelector:
+        matchLabels:
+          app: auth-client
+    ports:
+    - protocol: TCP
+      port: 80
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: wa
+    - podSelector:
+        matchLabels:
+          app: auth-server
+    ports:
+    - protocol: TCP
+      port: 80
