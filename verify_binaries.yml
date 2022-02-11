@@ -1,0 +1,33 @@
+v1.23.3cloud_user@k8s-control:~/k8s-binaries$ curl -LO "https://dl.k8s.io/v1.23.3/bin/linux/amd64/kube-apiserver.sha256"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   154  100   154    0     0   3347      0 --:--:-- --:--:-- --:--:--  3347
+100    64  100    64    0     0    324      0 --:--:-- --:--:-- --:--:--   324
+cloud_user@k8s-control:~/k8s-binaries$ curl -LO "https://dl.k8s.io/v1.23.3/bin/linux/amd64/kubectl.sha256"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   154  100   154    0     0   3422      0 --:--:-- --:--:-- --:--:--  3422
+100    64  100    64    0     0    551      0 --:--:-- --:--:-- --:--:--   551
+cloud_user@k8s-control:~/k8s-binaries$ curl -LO "https://dl.k8s.io/v1.23.3/bin/linux/amd64/kubelet.sha256"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   154  100   154    0     0   2524      0 --:--:-- --:--:-- --:--:--  3208
+100    64  100    64    0     0    429      0 --:--:-- --:--:-- --:--:--   429
+
+
+cloud_user@k8s-control:~/k8s-binaries$ echo "$(<kube-apiserver.sha256) kube-apiserver" | sha
+sha1sum       sha224sum     sha256sum     sha384sum     sha512sum     shadowconfig  shasum        
+cloud_user@k8s-control:~/k8s-binaries$ echo "$(<kube-apiserver.sha256) kube-apiserver" | sha
+sha1sum       sha224sum     sha256sum     sha384sum     sha512sum     shadowconfig  shasum        
+cloud_user@k8s-control:~/k8s-binaries$ echo "$(<kube-apiserver.sha256) kube-apiserver" | sha
+sha1sum       sha224sum     sha256sum     sha384sum     sha512sum     shadowconfig  shasum        
+cloud_user@k8s-control:~/k8s-binaries$ echo "$(<kube-apiserver.sha256) kube-apiserver" | sha256sum --check
+kube-apiserver: OK
+cloud_user@k8s-control:~/k8s-binaries$ echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+kubectl: OK
+cloud_user@k8s-control:~/k8s-binaries$ echo "$(<kubelet.sha256) kubelet" | sha256sum --check
+kubelet: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
+cloud_user@k8s-control:~/k8s-binaries$ rm -rf kubelet
+
+
