@@ -9,7 +9,7 @@ spec:
   podSelector: {}
   policyTypes:
   - Ingress
-  - Egress
+  
 
 Allow Traffic from the auth-client Pod to Reach the web-auth-server
 
@@ -21,29 +21,18 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      role: db
+      app: auth-server
   policyTypes:
-  - Ingress
-  - Egress
+    - Ingress
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: wa
-    - podSelector:
-        matchLabels:
-          app: auth-client
-    ports:
-    - protocol: TCP
-      port: 80
-  egress:
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: wa
-    - podSelector:
-        matchLabels:
-          app: auth-server
-    ports:
-    - protocol: TCP
-      port: 80
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            ns: web-auth
+      - podSelector:
+          matchLabels:
+            app: auth-client
+      ports:
+        - protocol: TCP
+          port: 8
+  
