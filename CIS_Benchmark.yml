@@ -1,5 +1,7 @@
 Install kube-bench
 https://github.com/aquasecurity/kube-bench/blob/main/docs/installation.md
+ curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.8/kube-bench_0.6.8_linux_amd64.deb  -o kube-bench_0.6.8_linux_amd64.deb
+ sudo apt install ./kube-bench_0.6.8_linux_amd64.deb -f
 
 Managing Network Interfaces on a Linux Host
 Introduction
@@ -83,8 +85,8 @@ Log in to the worker node server using the provided lab credentials:
 
 ssh cloud_user@<PUBLIC_IP_ADDRESS>
 Edit the kubelet configuration file using the provided lab password:
-
-sudo vi /var/lib/kubelet/config.yaml
+udo vi /var/lib/kubelet/config.yaml
+s
 Set authorization.mode to Webhook:
 
 authorization:

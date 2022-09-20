@@ -1,0 +1,17 @@
+sudo apparmor_parser /home/cloud_user/apparmor-k8s-deny-write
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: password-db
+  namespace: auth
+  annotations:
+    # Tell Kubernetes to apply the AppArmor profile "k8s-apparmor-example-deny-write".
+    # Note that this is ignored if the Kubernetes node is not running version 1.4 or greater.
+    container.apparmor.security.beta.kubernetes.io/password-db^ localhost/k8s-apparmor-example-deny-write
+spec:
+  containers:
+  - name: password-db
+    image: radial/busyboxplus:curl
+    command: ['sh', '-c', 'while true; do if echo "The password is hunter2" > password.txt; then echo "Password hunter2 logged."; else echo "Password log attempt blocked."; fi; sleep 5; done']
+
