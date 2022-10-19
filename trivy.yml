@@ -1,0 +1,6 @@
+questionablesoft
+k describe  pod admin-web-host -n questionablesoft
+trivy image nginx:1.14.2
+k describe  pod  questionablesoft-api  -n questionablesoft | grep Image
+trivy image busybox:1.33.1
+k describe  pod  webserver  -n questionablesoft | grep Image
