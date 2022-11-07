@@ -1,0 +1,18 @@
+Falco
+rule
+
+- rule: rules spawns nginx
+  desc: rule to report any newly-spawned processes in this container
+  condition: container.name=nginx  and evt.type=execve
+  output: user=%user.name container_id=%container.id container_name=%container.name shell=%proc.name parent=%proc.pname cmdline=%proc.cmdline
+  priority: INFO
+- rule: spawned_process_in_nginx_container
+  desc: A process was spawned in the Nginx container.
+  condition: container.name = "nginx" and evt.type = execve
+  output: "%evt.time,%proc.name,%user.uid,%container.id,%container.name,%container.image"
+  priority: WARNING
+
+En el nodo donde esta el pod que queremos monitorizar 
+sudo falco -r /home/cloud_user/nginx-rules.yml -M 15
+
+
