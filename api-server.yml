@@ -1,0 +1,21 @@
+sudo vi /etc/kubernetes/manifests/kube-apiserver.yaml
+Under the command-line arguments, add the audit-policy-file flag:
+
+- command:
+  - kube-apiserver
+  - --audit-policy-file=/etc/kubernetes/audit-policy.yaml
+Add the output directory for the audit logs:
+
+  - --audit-log-path=/var/log/kubernetes/k8s-audit.log
+Configure the API server to keep old log files a maximum of 60 days with a maximum of only 1 old log file:
+
+- --audit-log-maxage=60
+- --audit-log-maxbackup=1
+To save and exit the file, press Escape, type :wq, and hit Enter.
+
+Once kube-apiserver has been re-created, check the nodes:
+
+kubectl get nodes
+View the audit logs:
+
+sudo tail -f /var/log/kubernetes/k8s-audit.log
