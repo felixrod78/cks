@@ -1,0 +1,22 @@
+Fix a Pod's Service Account That Has Too Many Permissions
+
+cloud_user@k8s-cli:~$ k get   role buffy-role -n sunnydale -o yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: "2022-11-14T18:29:44Z"
+  name: buffy-role
+  namespace: sunnydale
+  resourceVersion: "660"
+  uid: decd83f8-f8c9-493b-aff1-806c221bba1b
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - 'pods'
+  verbs:
+  - 'list'
+
+
+
+Fix a Pod Configured to Use an Incorrect Service Account
