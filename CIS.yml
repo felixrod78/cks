@@ -1,0 +1,4 @@
+CIS
+kubelet /var/lib/kubernetes/config.yaml  restart kubelet
+kube-api /etc/kubernetes/manifests/kube-api.yml  auto
+etcd /etc/kubernetes/manifests/etcd.yaml  se saca fuera cambio y volvemos a meter auto
