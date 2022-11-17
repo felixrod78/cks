@@ -1,0 +1,57 @@
+Create a network policy called mtdoom-np that allows specific traffic on port 80 to reach the mtdoom Pod in the mordor namespace.
+
+The policy should allow incoming traffic from all Pods in the frodo namespace.
+
+It should also allow incoming traffic from all Pods with the label app=sam, regardless of which namespace they are in.
+
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mtdoom-np
+  namespace:  mordor
+spec:
+  podSelector:
+    matchLabels:
+      app: mtdoom
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        -  namespaceSelector:
+            matchLabels:
+              name: frodo
+           podSelector: []
+        -  podSelector: 
+            matchLabels:
+              app: sam
+           namespaceSelector: []   
+        ports:
+        - protocol: TCP
+          port: 80
+
+
+
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mtdoom-np
+  namespace: mordor
+spec:
+  podSelector:
+    matchLabels:
+      app: sam
+
+  policyTypes: 
+    -  Ingress 
+  ingress:
+    - from:
+        - podSelector: {}
+        - namespaceSelector:
+           matchLabels:
+             app: frodo
+~     ports:
+        - protocol: TCP
+          port: 80               
+
