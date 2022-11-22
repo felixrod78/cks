@@ -1,0 +1,30 @@
+apiVersion: audit.k8s.io/v1 # This is required.
+kind: Policy
+# Don't generate audit events for all requests in RequestReceived stage.
+omitStages:
+  - "RequestReceived"
+rules:
+  # Log pod changes at RequestResponse level
+  - level: RequestResponse
+    resources:
+    - group: ""
+      # Resource "pods" doesn't match requests to any subresource of pods,
+      # which is consistent with the RBAC policy.
+      resources: ["configmaps"]
+  # Log "pods/log", "pods/status" at Metadata level
+  - level: Request
+    resources:
+    - group: ""
+      resources: ["pods", "services"]
+    namespaces: ["web"]
+  
+
+  # Don't log requests to a configmap called "controller-leader"
+  - level: Metadata
+    resources:
+    - group: ""
+      resources: ["secrets"]
+      
+
+  # A catch-all rule to log all other requests at the Metadata level.
+  - level: Metadata
