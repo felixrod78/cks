@@ -1,0 +1,45 @@
+cloud_user@k8s-cli:~$ k get pod buffy -n sunnydale -o yaml | grep  allowPrivilegeEscalation 
+      allowPrivilegeEscalation: false
+cloud_user@k8s-cli:~$ k get pod buffy -n sunnydale -o yaml | grep  allowPrivilegeEscalation  | grep readOnlyRootFilesystem
+cloud_user@k8s-cli:~$ k get pod buffy -n sunnydale -o yaml | grep  allowPrivilegeEscalation  | grep readOnlyRootFilesystem
+cloud_user@k8s-cli:~$ k get pod buffy -n sunnydale -o yaml | grep  allowPrivilegeEscalation, readOnlyRootFilesystem 
+grep: readOnlyRootFilesystem: No such file or directory
+cloud_user@k8s-cli:~$ k get pod buffy -n sunnydale -o yaml | grep   readOnlyRootFilesystem 
+cloud_user@k8s-cli:~$ k get pod buffy -n sunnydale -o yaml | grep  allowPrivilegeEscalation 
+      allowPrivilegeEscalation: false
+cloud_user@k8s-cli:~$ k get pod cordelia  -n sunnydale -o yaml | grep  allowPrivilegeEscalation 
+      allowPrivilegeEscalation: false
+cloud_user@k8s-cli:~$ k get pod cordelia  -n sunnydale -o yaml | grep  readOnlyRootFilesystem
+      readOnlyRootFilesystem: true
+cloud_user@k8s-cli:~$ k get pod willow   -n sunnydale -o yaml | grep  allowPrivilegeEscalation 
+cloud_user@k8s-cli:~$ k get pod willow  -n sunnydale -o yaml | grep  readOnlyRootFilesystem
+      readOnlyRootFilesystem: true
+cloud_user@k8s-cli:~$ k get pod xander   -n sunnydale -o yaml | grep  allowPrivilegeEscalation 
+      allowPrivilegeEscalation: false
+cloud_user@k8s-cli:~$ k get pod xander   -n sunnydale -o yaml | grep  readOnlyRootFilesystem
+      readOnlyRootFilesystem: false
+cloud_user@k8s-cli:~$ k get pod buffy -n sunnydale -o yaml | grep  runAsUser
+      runAsUser: 0
+cloud_user@k8s-cli:~$ k get pod cordelia  -n sunnydale -o yaml | grep  runAsUser: 0
+grep: 0: No such file or directory
+cloud_user@k8s-cli:~$ k get pod cordelia  -n sunnydale -o yaml | grep  runAsUse
+cloud_user@k8s-cli:~$ k get pod xander   -n sunnydale -o yaml | grep  runAsUser: 0
+grep: 0: No such file or directory
+cloud_user@k8s-cli:~$ k get pod xander   -n sunnydale -o yaml | grep  runAsUse
+cloud_user@k8s-cli:~$ k get pod willow   -n sunnydale -o yaml | grep  runAsUse
+cloud_user@k8s-cli:~$ k get pod willow   -n sunnydale -o yaml | grep  runAsUser
+
+buffy      1/1     Running   0          5m24s  mutable
+ allowPrivilegeEscalation: false
+ runAsUser: 0
+
+cordelia   1/1     Running   0          5m23s  inmutable
+allowPrivilegeEscalation: false
+readOnlyRootFilesystem: true
+
+willow     1/1     Running   0          5m23s   inmutable
+readOnlyRootFilesystem: true
+
+xander     1/1     Running   0          5m23s   mutable
+allowPrivilegeEscalation: false
+readOnlyRootFilesystem: false
