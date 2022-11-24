@@ -1,0 +1,40 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: nopriv-psp
+spec:
+  runAsUser:
+    rule: ""
+  fsGroup:
+    rule: ""
+  seLinux:
+    rule: ""
+  supplementalGroups:
+    rule: ""
+
+    kubectl create serviceaccount -n hoth  hoth-sa
+kubectl create rolebinding -n psp-example fake-editor --clusterrole=edit --serviceaccount=psp-example:fake-user
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: use-nopriv-psp
+rules:
+- apiGroups: ['policy']
+  resources: ['podsecuritypolicies']
+  verbs:     ['use']
+  resourceNames: 
+  -  nopriv-psp
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: hoth-sa-use-nopriv-psp
+roleRef:
+  kind: ClusterRole
+  name:  use-nopriv-psp
+  apiGroup: rbac.authorization.k8s.io 
+subjects:
+- kind: ServiceAccount
+  name: hoth-sa
+  namespace: hoth
